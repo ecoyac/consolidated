@@ -36,14 +36,14 @@
 \affil{Electronics Department\\Telecom Bretagne\\name.lastname@telecom-bretagne.eu}
 
 
-\title{Emergence of Robust Associative Memories from Recurrent Hebbian Networks Under Energy and Noise Constraints}
+\title{Robust Associative Memories Naturally Occuring From Recurrent Hebbian Networks Under Noise}
 
 \maketitle
 
 \begin{abstract}
 
-  It is well known that the brain is subject to noise and energy constraints. These facts are rarely taken into account when modelling artificial neural networks. In this paper, we are interested in demonstrating that those factors can actually lead to the creation of robust associative memories. We first propose a simplified model of noise in the brain, taking into account synaptic and external interference. When coarsely quantized, we show this noise can be reduced to insertions and erasures. %% Considering energy to be mainly due to the activation of neurons, we examine sparse coding 
-We take a neural network with recurrent modifiable connections, and subject it to such noisy external inputs. We introduce an energy usage limitation to the network as well as consolidated Hebbian learning, resulting in an incremental processing of inputs. We show that the connections naturally formed correspond to state-of-the-art binary sparse associative memories.
+  The brain is a very noisy sstem and is also subject to energy constraints. These facts are rarely taken into account when modelling artificial neural networks. In this paper, we are interested in demonstrating that those factors can actually lead to the appearance of robust associative memories. We first propose a simplified model of noise in the brain, taking into account synaptic noise and interference from neurons external to the network. When coarsely quantized, we show that this noise can be reduced to insertions and erasures. %% Considering energy to be mainly due to the activation of neurons, we examine sparse coding 
+We take a neural network with recurrent modifiable connections, and subject it to noisy external inputs. We introduce an energy usage limitation principle in the network as well as consolidated Hebbian learning, resulting in an incremental processing of inputs. We show that the connections naturally formed correspond to state-of-the-art binary sparse associative memories.
 
 \end{abstract}
 
@@ -53,11 +53,11 @@ We take a neural network with recurrent modifiable connections, and subject it t
 
 \section{Introduction}
 
-Sparse associative memories are known to achieve almost optimal performance as far as memory efficiency is concerned~\cite{gripon2015comparative}. These constructs have long been considered more biologically plausible than their indexed counterparts for their ability to access and retrieve content from partial inputs. The most efficient models rely on binary connections. They have been inspired by sparse coding and Hebbian learning. In this paper, we are interested in demonstrating that these constructs naturally arise when considering recurrent neural networks under energy and noise constraints, with some changes on the classical Hebbian learning process.
+Sparse associative memories are known to achieve almost optimal performance as far as memory efficiency is concerned~\cite{gripon2015comparative}. These structures have long been considered more biologically plausible than their indexed counterparts for their ability to access and retrieve content from partial inputs. The most efficient models rely on binary connections\cite{}. They have been inspired by sparse coding and Hebbian learning. In this paper, we are interested in demonstrating that these memories naturally arise when considering recurrent neural networks under energy and noise constraints, assuming some changes on the classical Hebbian learning process.
 \blfootnote{This work was funded in part by the European Research Council under the European Union's Seventh Framework Programme (FP7/2007-2013)/ERC grant agreement n$\degree$ 290901. It was also funded in part by the CominLabs project Neural Communications and the Future \& Rupture program.}
 
 
-We first are interested in introducing a model of noise, as it is present in the brain. Noise in the brain can be due to interference from other neurons, synaptic failure or other factors such as molecular noise. In this work, we focus on the first two of these factors. We show that this noise can be reduced to insertions and erasures when considered external from the network. One way to address noise concerns consists in refining the Hebbian learning rule.
+We first are interested in introducing a model of noise, as it is present in the brain. Noise in the brain can be due to irrelevant inputs from other neurons, synaptic failure or other factors such as molecular noise. In this work, we focus on the first two of these factors. We show that this noise can be reduced to insertions and erasures when considered external from the network. One way to address noise concerns consists in refining the Hebbian learning rule.
 
 Hebbian learning has been widely used in neural networks since their beginning,
 stating that when two neurons fire together, the connection between the neurons
@@ -76,7 +76,7 @@ Finally we add a last constraint to our network: limited energy consumption. Thi
 
 \subsection{Synaptic noise}
 
-Neurons are connected to a multitude of other neurons. Each neuron receives input from numerous other neurons, sometimes in the thousands. On the other hand they have a single axon, which then branches to reach a multitude of other \emph{target} neurons, so each neuron is itself an input to a number of other neurons. In addition to this high connectivity, there is not a single point of contact between a neuron and a target neuron neuron, but several. An axon not only branches to reach multiple neurons, it also branches off into several synapses reaching the same target neuron. 
+Neurons are connected to a multitude of other neurons. Each neuron receives inputs from numerous other neurons, sometimes numbering in the thousands. On the other hand, they have a single axon which branches out to reach a multitude of other \emph{target} neurons, so each neuron is itself an input to a number of many other neurons. In addition to this high connectivity, there is not a single point of contact between a neuron and a target neuron neuron, but several. An axon not only branches to reach multiple neurons, it also branches off into several synapses reaching the same target neuron. 
 
 Generally, the connection between two neurons is comprised of 5 to 25 synapses\cite{branco2009probability}. Synapses are not reliable\cite{branco2009probability,allen1994evaluation}, and the probability of them working typically ranges from $0.2$ to $0.8$ \cite{branco2009probability}. 
 
@@ -98,15 +98,15 @@ Generally, the connection between two neurons is comprised of 5 to 25 synapses\c
  
 \end{tikzpicture}
 
-\caption{Example of neuronal transmission from one neuron $n_1$ to another $n_2$ with $\mathbf{n_{syn} = 5}$. Each synapse has a probability $\mathbf{p_{rel} = 0.5}$ of stimulating $n_2$ when $n_1$ is activated. When $n_1$ is activated, $n_2$ receives a stimulation following the law $B(0.5, 5)$.}
+\caption{Example of neuronal contact between one neuron $n_1$ and another $n_2$ with $\mathbf{n_{syn} = 5}$. Each synapse has a probability $\mathbf{p_{rel}}$ of stimulating $n_2$ when $n_1$ is activated. When $n_1$ is activated, $n_2$ receives a stimulation following the law $B(p_{rel}, 5)$.}
 \label{fig:synmodel}
 \end{figure}
 
 
 
-In this paper, we consider the way failing synapses affect the connection between two neurons, and then how this phenomenon contributes to a noisy environment in neural networks. To make things simpler, we make things uniform by considering that any connection between two neurons has the same number of synapese $n_{syn}$, and that the stimulation generated by each synapse is of the same strength. Furthermore we assume that each synapse has the same independent probability $p_{rel}$ of releasing neuro-transmitters when stimulated, regardless of previous events. The connection between two neurons $n_1$ and $n_2$ is represented in Figure~\ref{fig:synmodel}. With this model, the stimulation a neuron receives from another follows a binomial law $B(n_{syn}, p_{rel})$ as shown in Figure~\ref{fig:binomial}.
+In this paper, we consider the way failing synapses affect the connection between two neurons, and then how this phenomenon contributes to a noisy environment in neural networks. To make things simpler, we consider that any connection between two neurons has the same number of synapses $n_{syn}$, and that the stimulation generated by each synapse is of the same strength. Furthermore we assume that each synapse has the same independent probability $p_{rel}$ of releasing neuro-transmitters when stimulated, regardless of previous events. The connection between two neurons $n_1$ and $n_2$ is represented in Figure~\ref{fig:synmodel}. With this model, the stimulation a neuron receives from another follows a binomial law $B(n_{syn}, p_{rel})$ as shown in Figure~\ref{fig:binomial}.
 
-Synaptic noise creates noise interferences with the inner workings of a neural network. It is also a modulation on noise generated by external, interferring neurons, which we study in the next subsection. 
+Synaptic noise interferes with the inner workings of a neural network. It is also a modulation on noise generated by external, interferring neurons, which we study in the next subsection. 
 
 \begin{figure}
 \begin{tikzpicture}[
@@ -126,17 +126,17 @@ Synaptic noise creates noise interferences with the inner workings of a neural n
 \addplot [only marks, orange] {binom(x,20,0.5)}; \addlegendentry{$p_{rel}=0.5$}
 \end{axis}
 \end{tikzpicture}
-\caption{Probabilities for different stimulation instensities $p_{rel}$ with $n_{syn}=20$.}
+\caption{Probabilities for different stimulation instensities a neuron can receive from another depending on $p_{rel}$ with $n_{syn}=20$.}
 \label{fig:binomial}
 \end{figure}
 
 \subsection{Interference from other neurons}
 
-Neurons have thousands of inputs and outputs. As such a neural network performing a task can receive interference coming from external neurons. We are interested in how the interference of these neurons can affect a neural network.
+Neurons have thousands of inputs and axonal outputs. As such a neural network performing a task can be subject to external input from neurons irrelevant to its current task. We are interested in how the interference caused by these neurons can affect a neural network.
 
-We first focus on quantifying this interference. We assume a neuron $m$ from the network has $n_{ext}$ external inputs irrelevant to its task. We make the hypothesis that those neurons fire at an average frequency of $f_{ext}$ Hz, a typical neuron fires 5 to 50 times per second. 
+We first focus on quantifying this interference. We assume a neuron $m$ from the network has input from $n_{ext}$ external neurons, not relevant to the neuron's task in the network. We make the hypothesis that those neurons fire at an average frequency of $f_{ext}$ Hz, a typical neuron firing 5 to 50 times per second. 
 
-To have an impact on the neuron $m$, the stimulations from external neurons need to happen in the same short time window $t_{int}$, typically 10 ms. Indeed, we consider the leaky integrator model\cite{jaeger2007optimization} for the neuron, and the neuron's voltage rapidly decreases in the absence of additional stimulations.
+To have an impact on the neuron $m$, the stimulations from external neurons need to happen in the same short time window $t_{int}$, typically 10 ms. Indeed, we consider the leaky integrator model\cite{jaeger2007optimization} for the neuron. This is a model where the spikes the neuron receives increase its voltage and the neuron fires once that voltage goes beyond a certain threshold $\sigma$. The neuron's voltage rapidly decreases in the absence of additional stimulations, making it necessary that enough spikes happen in a short time window in order for the neuron to fire.
 
 Finally, we consider that the $n_{ext}$ neurons are composed of $n_{ex}$ excitatory neurons and $n_{in}$ inhibitory neurons, with $n_{in} + n_{ex}$ = $n_{ext}$. We also consider activations the $n_{ext}$ external neurons to be completely independent from each other.
 
@@ -162,7 +162,7 @@ P_{in}\left( x \right) = \frac{{e^{ - \lambda_{in} } \lambda_{in} ^x }}{{x!}}
   samples at = {0,...,15}},
   axis x line*=bottom,
   axis y line*=left,
-  xlabel = {Number of external neurons interfering},
+  xlabel = {Number of interfering inputs},
   ylabel = {Probability},
   enlargelimits=upper]
   \addplot +[ycomb] {poiss(1)};  \addlegendentry{$\lambda=1$};
@@ -178,25 +178,27 @@ Different examples of Poisson laws with parameters are shown in Figure~\ref{fig:
 
 \subsection{Reduction to insertions and erasures}
 
-Assuming each neuron of the network has a threshold $\sigma$ to activate, then enough positive noise can cause a neuron to activate even in the absence of other stimulation. Conversely, enough negative noise can cause a neuron with otherwise enough stimulation to fail to activate.
+Given the threshold $\sigma$ for a neuron to fire, enough positive noise can cause a neuron to fire even in the absence of other stimulation. Conversely, enough negative noise can cause a neuron with otherwise enough stimulation to fail to fire.
 
-We call a neuron activating due to positive noise an \emph{insertion}, and a neuron activating due to negative noise an \emph{erasure}. We consider a neural network receiving \emph{external} input. Given the parameters $\sigma$, $p_{rel}$, $n_{syn}$, $\lambda_{ex}$, $\lambda_in$, and an additional parameter $n_{inputs}$ which is the number of stimulating neurons feeding a neuron supposed to activate, it is possible to compute $p_{del}$ and $p_{ins}$, the probabilities for erasure and insertion. Each neuron supposed to activate has a probability $p_{del}$ of failing to activate, and each neuron supposed to stay inactive a probability $p_{ins}$ of activating.
+We call a neuron firing due to positive noise an \emph{insertion}, and a neuron failing to fire due to negative noise an \emph{erasure}. We consider a neural network receiving \emph{external} input. Given the parameters $\sigma$, $p_{rel}$, $n_{syn}$, $\lambda_{ex}$, $\lambda_in$, and an additional parameter $n_{inputs}$ which is the number of stimulating neurons feeding a neuron supposed to activate, it is possible to compute $p_{del}$ and $p_{ins}$, the probabilities for erasure and insertion. Each neuron supposed to activate has a probability $p_{del}$ of failing to activate, and each neuron supposed to stay inactive a probability $p_{ins}$ of activating.
+
+%Todo: schema 
 
 More generally, given positive and negative noise factors, as long as the neurons supposed to activate are all intended to receive the same stimulus, and the neurons supposed to stay inactive another stimulus, then it is possible to always reduce the noise to a probability of erasure and a probability of insertion.
 
 \section{Network Model}
 
-We consider a neural network of multiple units. Each unit is a mesoscopic coherent group of neurons \cite{galtier2012hebbian}. We choose a network with recurrent modifiable connection, i.e. a plastic network. We also choose our network to be Hebbian \cite{hagan1996neural}, as is the norm.
+We consider a neural network of multiple units. Each unit is a mesoscopic coherent group of neurons \cite{galtier2012hebbian}. We choose a network with recurrent modifiable connections, i.e. a plastic network. We also choose our network to be Hebbian \cite{hagan1996neural}, as is the norm.
 
 We consider the network to have $n$ units. The network has several variables that can be observed: the connection weight between units, the external input each unit receives and the activity of each unit. For a time $t$, we note the weight matrix of the network $W(t)$. The connection weight between two units $i$ and $j$  is $W_{ij}(t)$. The activity of a unit $i$ is $V_i(t)$ and $I_i(t)$ is the external input to the unit $i$. 
 
-In the brain, networks typically function at a frequency $f$\cite{buzsaki2004neuronal} depending on the network. As such, we consider the time as discrete, with an increase of $1$ for each iteration of the network.
+In the brain, networks typically function at a certain frequency~\cite{buzsaki2004neuronal} . We designate the frequency of our network $f$. As such, we consider the time as discrete, with an increase of $1$ for each iteration of the network.
 
 Given a dataset of $M$ samples, the network will learn that data by being submitted to each sample from the dataset for a certain amount of time. More formally, for each pattern in the dataset, the network will be submitted to an external input corresponding to that pattern for a set amount of successive iterations.
 
 \subsection{Consolidated Hebbian learning}
 
-As our network is Hebbian, connections between neurons activating at the same time are strengthened. We choose to strengthen those connections by $\varepsilon$. Moreover, in order to reduce the impact of the noise, we choose to implement \emph{consolidated Hebbian learning}\cite{fusi2000spike,gerstner2002mathematical}. 
+As our network is Hebbian, connections between neurons activating at the same time are strengthened. We choose to strengthen those connections by incrementing them by a set amount $\varepsilon$. Moreover, in order to reduce the impact of the noise, we choose to implement \emph{consolidated Hebbian learning}\cite{fusi2000spike,gerstner2002mathematical}. 
 
 It consists in Hebbian learning followed by reinforcing strong connections above a threshold $\sigma_{H}$ and weakening weaker connections. It helps ignoring temporary small increase in connections introduced by noise, and maintain strong connections.  
 
@@ -274,9 +276,9 @@ As seen in Figure~\ref{fig:sigmoid}, with this choice for $s$, $\sigma_H = 0.5$.
 
 \subsection{Limited Energy Usage}
 
-Despite being only $2\%$ of the body mass, the brain makes up for around $20\%$ of the energy consumption of the brain~\cite{lennie2003cost}. Energy consumption itself is one of the major limiting factors in the brain~\cite{attwell2001energy, lennie2003cost}. According to~\cite{attwell2001energy}, only one in 100 neurons at most is active at the same time. 
+Despite being only $2\%$ of the body mass, the brain makes up for around $20\%$ of the energy consumption of the body~\cite{lennie2003cost}. Energy consumption itself is one of the major limiting factors in the brain~\cite{attwell2001energy, lennie2003cost}. According to~\cite{attwell2001energy}, only one in 100 neurons at most is active at the same time. 
 
-As such, we limit the number of concurrently active units. It can be considered as implementing inhibition in our neural network, as well as assuaging limited energy concerns. We show two ways of implementing this limitation.
+As such, we limit the number of concurrently active units. It can be considered as implementing inhibition in our neural network, as well as assuaging concerns over energy usage. We suggest two ways of implementing this limitation.
 
 \subsubsection{Setting a hard limit without structure}
 
@@ -305,7 +307,7 @@ For each cluster $X$, a unit $x \in X$ is active if $h_1(x) = 1$.
 
 %% \subsubsection{Comparing the approaches}
 
-Both this approach and the previous one are a form of \emph{winner-takes-all}, which is widely used in neural networks \cite{wolpert1992stacked,dlugosz2010realization}. The second approach may seem to be more intuitive, as the rule is more localized and as such seems more easily enforceable in the brain. It considers that a unit activating inhibits all the other units in the same cluster. While, for the first approach, the neural network needs to count the number of units active at the same time, find the $c$ most active units, and inhibits all the other units.
+Both this approach and the previous one are a form of \emph{winner-takes-all}, which is widely used in neural networks \cite{wolpert1992stacked,dlugosz2010realization}. The second approach may seem to be more intuitive, as the rule is more localized and as such seems more easily enforceable in the brain. It considers that a unit activating inhibits all the other units in the same cluster. Whereas for the first approach, the neural network needs to count the number of units active at the same time, find the $c$ most active units, and inhibits all the other units.
 
 %% As such we will use the second approach in the rest of the paper.
 
@@ -316,7 +318,7 @@ Both this approach and the previous one are a form of \emph{winner-takes-all}, w
 
 With those two rules in place, consolidated Hebbian learning which is there to mitigate noise and the energy usage limitation rule, it is possible to put the network in equations.
 
-Let us denote $H_c$ the winner-take-all function individually applied to a group of units and $S$ the sigmoid individually applied to each member of a matrix as well.
+Let us denote $H_c$ the winner-takes-all function individually applied to a group of units and $S$ the sigmoid individually applied to each member of a matrix as well.
  
 Taking into account the winner-take-all operations on the units of the network and the sigmoid applied to the connection weights, the and the neural network by the following set of equations:
 
@@ -327,7 +329,7 @@ Taking into account the winner-take-all operations on the units of the network a
 
 Other neural networks, such as in~\cite{galtier2012hebbian}, use similar-looking differential equations. The major difference between this network and the others is that a sigmoid is applied to the synaptic weights after Hebbian learning. Other networks using a sigmoid apply it to the neurons' activity $V$ instead.
 
-In our network, a message or pattern is learned after the same units are stimulated for several successive iterations from the external input $I(t)$. The number of iterations necessary depends on $\varepsilon$ and $s$, as well as the noise conditions. If the number of iterations is not enough, after a few iterations on the next pattern the connection weights between the units constituting the patterns would fall back to $0$. Any fortuitous stimulation of two units at the same time during the operation of the network will not create lasting connections.
+In our network, a message or pattern is learned after the same units are stimulated for several successive iterations from the external input $I(t)$. The number of iterations necessary depends on $\varepsilon$ and the sigmoid $s$, as well as the noise conditions. If the number of iterations is not enough, after a few iterations on the next pattern the connection weights between the units constituting the patterns would fall back to $0$. Any fortuitous stimulation of two units at the same time during the operation of the network will not create lasting connections.
 
 \subsection{Properties of the network}
 
@@ -437,7 +439,7 @@ In our network, this process can be achieved by simply activating the units corr
 
 \subsection{Simulations}
 
-We tested the network learing external input under noisy conditions, and compared it to a neural clique network having learned the same messages.
+We tested the network learning external input under noisy conditions, and compared it to a neural clique network having learned the same messages.
 
 We chose a network of 2048 units. We choose the energy limitation rule to be that only one unit in each of $c=8$ clusters of $\ell=256$ units each to be active at the same time. The number of successive iterations $n_{it}$ the network is exposed to each message to learn is variable. 
 
@@ -505,9 +507,9 @@ We see that the number of connections that differ in both networks is minimal, a
 
 \section{Conclusion}
 
-The contributions of this paper are twofold. First we show that under a few assumptions, all noise in the brain external to a neural network can have its impact on it be reduced to insertions and erasures. Second, we show that by implementing \emph{consolidated Hebbian learning} in order to resist noise and \emph{local-winner-takes-all} in order to limit energy consumption, a recurrent neural network subject to repeated external inputs naturally becomes a neural clique network storing those inputs. 
+The contributions of this paper are twofold. First we showed that under a few assumptions, all noise in the brain external to a neural network can have its impact on it be reduced to insertions and erasures. Second, by implementing \emph{consolidated Hebbian learning} in order to resist noise and \emph{local-winner-takes-all} in order to limit energy consumption, we showed a recurrent neural network subject to repeated external inputs naturally becomes a neural clique network storing those inputs. 
 
-Due to the properties of a neural clique network, it can be described as a network with a short \emph{incremental} learning period, that can be trivally binarized, and when binarized with an impressive storage capacity that is on the same order of magnitude as binary storage. We show that all that happens from an initial Hebbian recurrent neural network with a few constraints added, in \emph{a noisy environment}. The network is only governed by a set of recurent differential equations which are used for both learning new patterns and recovering partially erased messages.
+Due to the properties of a neural clique network, it can be described as a network with a short \emph{incremental} learning period, that can be trivially binarized, and when binarized with an impressive storage capacity that is on the same order of magnitude as binary storage. This neural clique network stems from from a Hebbian recurrent neural network with only a few constraints added, in \emph{a noisy environment}. The network is  governed by a single set of recurent differential equations which are used for both learning new patterns and recovering partially erased messages.
 
 As such, we show that more than simply being bioligically plausible, the presence of neural clique networks in the brain is \emph{probable}, and that a neuro-inspired approach gives birth to a near-optimal associative memory storage-wise.
 
